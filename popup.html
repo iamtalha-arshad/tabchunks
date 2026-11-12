@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TabChunks</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <img src="icons/icon32.png" alt="" width="22" height="22">
+        <span>TabChunks</span>
+      </div>
+      <div class="top-actions">
+        <button id="openFull" class="icon-btn" title="Open full view"></button>
+        <button id="menuBtn" class="icon-btn" title="Settings" aria-haspopup="true"></button>
+      </div>
+      <div id="menu" class="menu" hidden>
+        <label class="menu-item toggle">
+          <span>Restore original tab groups</span>
+          <input type="checkbox" id="optGroup">
+        </label>
+        <label class="menu-item toggle">
+          <span>Delete chunk after restoring</span>
+          <input type="checkbox" id="optDelete">
+        </label>
+        <hr>
+        <button class="menu-item" id="exportBtn">Export chunks (JSON)</button>
+        <button class="menu-item" id="importBtn">Import chunks…</button>
+        <hr>
+        <div class="menu-note">
+          <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>K</kbd> open &nbsp;·&nbsp;
+          <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd> save window
+        </div>
+      </div>
+    </header>
+
+    <nav class="seg" id="seg" role="tablist">
+      <button data-view="save" role="tab">Save tabs</button>
+      <button data-view="saved" role="tab">Saved <span id="savedCount" class="pill">0</span></button>
+    </nav>
+
+    <main class="panes">
+      <section id="savePane" class="pane">
+        <h2 class="pane-title">Save tabs</h2>
+        <div class="compose">
+          <label for="chunkName" class="field-label">Name this chunk</label>
+          <input id="chunkName" type="text" maxlength="80" autocomplete="off" spellcheck="false">
+          <div id="colorRow" class="colors" role="radiogroup" aria-label="Chunk color"></div>
+        </div>
+        <div class="list-toolbar">
+          <label class="check">
+            <input type="checkbox" id="selectAll">
+            <span id="selCount">0 selected</span>
+          </label>
+          <input id="tabFilter" class="mini-search" type="search" placeholder="Filter tabs">
+        </div>
+        <ul id="tabList" class="tab-list"></ul>
+        <footer class="actions">
+          <button id="saveKeep" class="btn ghost">Save only</button>
+          <button id="saveClose" class="btn primary">Save &amp; close</button>
+        </footer>
+      </section>
+
+      <section id="savedPane" class="pane">
+        <h2 class="pane-title">Saved chunks</h2>
+        <div class="search-wrap">
+          <input id="search" type="search" placeholder="Search chunks and tabs   ( / )">
+        </div>
+        <div id="chunkList" class="chunk-list"></div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+  <input type="file" id="importFile" accept="application/json,.json" hidden>
+  <script src="popup.js"></script>
+</body>
+</html>
